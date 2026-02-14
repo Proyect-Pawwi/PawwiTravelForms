@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Registro Travel Pawwi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            // TUS CREDENCIALES
+            emailjs.init("lqOGtKO0YTxycmgYU"); 
+        })();
+    </script>
+
+    <style>
+        /* --- 🎨 PALETA OFICIAL PAWWI --- */
+        :root {
+            --midnight: #120A2B;
+            --plum: #F7AEF1;
+            --snow: #FFFAF8;
+            --atomic-tangerine: #FF7031;
+            --blue-ice: #92C0E9;
+            
+            --bg-body: var(--snow);
+            --text-main: var(--midnight);
+            --text-light: #6E6A7B;
+            --border: #E8E6EA;
+            --radius: 16px;
+        }
+
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 600px;
+            padding: 35px 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 40px rgba(18, 10, 43, 0.08);
+            margin-top: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(18, 10, 43, 0.05);
+        }
+
+        header { text-align: center; margin-bottom: 35px; }
+        h1 { 
+            color: var(--midnight); 
+            margin: 0; 
+            font-weight: 800; 
+            font-size: 2rem; 
+            letter-spacing: -0.5px;
+        }
+        p.subtitle { 
+            color: var(--text-light); 
+            font-size: 1rem; 
+            margin-top: 8px; 
+            line-height: 1.5;
+        }
+
+        .step { display: none; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .step.active { display: block; }
+        
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 {
+            font-size: 1.3rem;
+            color: var(--midnight);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--plum);
+            display: inline-block;
+        }
+
+        .form-group { margin-bottom: 25px; text-align: left; }
+        label { display: block; font-weight: 700; margin-bottom: 10px; font-size: 1rem; color: var(--midnight); }
+        .sub-label { display: block; font-size: 0.9rem; color: var(--text-light); margin-bottom: 10px; font-weight: 400; margin-top: -5px;}
+
+        input[type="text"],
+        input[type="number"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            background: #FAFAFA;
+            color: var(--midnight);
+            transition: all 0.2s;
+        }
+
+        /* Estilo especial para el campo bloqueado */
+        input[readonly] {
+            background-color: #F0F0F2;
+            color: var(--text-light);
+            cursor: not-allowed;
+            border-color: var(--border);
+        }
+
+        input:focus:not([readonly]), textarea:focus, select:focus {
+            border-color: var(--atomic-tangerine);
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(255, 112, 49, 0.1);
+        }
+
+        textarea { resize: vertical; min-height: 100px; }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .check-item {
+            background: #FFFFFF;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .check-item:hover { border-color: var(--plum); background: #FCF5FB; }
+        .check-item input { 
+            margin-right: 12px; 
+            width: 20px; 
+            height: 20px; 
+            accent-color: var(--atomic-tangerine); 
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        button {
+            padding: 18px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .btn-next { 
+            background-color: var(--atomic-tangerine); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(255, 112, 49, 0.3);
+        }
+        .btn-next:hover { background-color: #E66025; }
+        .btn-next:active { transform: scale(0.98); }
+        
+        .btn-prev { 
+            background-color: #F0F0F2; 
+            color: var(--text-light); 
+            font-weight: 600;
+        }
+        .btn-prev:hover { background-color: #E2E2E5; color: var(--midnight); }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .progress-dot {
+            height: 6px;
+            flex-grow: 1;
+            background: #E8E6EA;
+            margin: 0 4px;
+            border-radius: 4px;
+            transition: background 0.4s;
+        }
+        .progress-dot.active { background: var(--blue-ice); }
+        .progress-dot.completed { background: var(--plum); }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--atomic-tangerine);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+
+        /*Carrousel*/
+        .pawwer-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .pawwer-card {
+            min-height: 12pc;
+            min-width: 10pc;
+            background: #fff;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 12px;
+            cursor: pointer;
+            scroll-snap-align: start;
+            transition: all 0.2s;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pawwer-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: auto; /* 👈 empuja el footer hacia abajo */
+        }
+
+        .pawwer-footer {
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .pawwer-footer strong {
+            display: block;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--midnight);
+        }
+
+        .pawwer-footer small {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+
+        .pawwer-card input {
+            display: none;
+        }
+
+        .pawwer-card:has(input:checked) {
+            border-color: var(--atomic-tangerine);
+            box-shadow: 0 0 0 4px rgba(255, 112, 49, 0.15);
+            background: #FFF6F1;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🐶 Registro Pawwi Travel</h1>
+        <p class="subtitle">Cuéntanos sobre tu peludo para que viva una experiencia Pawwi inolvidable.</p>
+    </header>
+
+    <div class="progress-container">
+        <div class="progress-dot active" id="dot-0"></div>
+        <div class="progress-dot" id="dot-1"></div>
+        <div class="progress-dot" id="dot-2"></div>
+        <div class="progress-dot" id="dot-3"></div>
+        <div class="progress-dot" id="dot-4"></div>
+    </div>
+
+    <form id="daycareForm">
+        
+        <div class="step active" id="step-0">
+            <h2>1. Perfil del Peludo</h2>
+            
+            <div class="form-group">
+                <label>Nombre del perrito(s) *</label>
+                <input type="text" name="nombre" placeholder="Ej: Bruno" required>
+            </div>
+
+            <div class="form-group">
+                <label>Raza y Tamaño *</label>
+                <input type="text" name="raza" placeholder="Ej: Golden Retriever, Grande" required>
+            </div>
+
+            <div class="form-group">
+                <label>Edad (Años/Meses) *</label>
+                <input type="text" name="edad" placeholder="Ej: 3 años" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sexo</label>
+                <select name="sexo">
+                    <option value="Macho">Macho</option>
+                    <option value="Hembra">Hembra</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>¿Está esterilizado/a?</label>
+                <select name="esterilizado">
+                    <option value="Si">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="btn-prev" style="visibility: hidden;">Atrás</button>
+                <button type="button" class="btn-next" onclick="nextStep(0)">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="step" id="step-1">
+            <h2>2. Detalles de la estadia</h2>
+            <p class="subtitle">
+                Cuántos dias necesitas el servicio.
+            </p>
+
+            <!-- DÍAS DE ESTADÍA -->
+            <div class="form-group">
+                <label>¿Cuántos días necesitas el servicio? *</label>
+                <span class="sub-label">Mínimo 3 días ($60k por noche)</span>
+                <input 
+                    type="number" 
+                    name="dias_estadia" 
+                    min="3" 
+                    placeholder="Ej: 3" 
+                    required
+                >
+            </div>
+
+            <!-- CUIDADOR -->
+            <div class="form-group">
+                <label>¿Quién cuidará a tu peludo? *</label>
+                <span class="sub-label">Selecciona a la persona que prefieres</span>
+
+                <div class="pawwer-carousel">
+                    <label class="pawwer-card">
+                        <input type="radio" name="cuidador" value="Pawwer 1">
+
+                        <img src="https://placekitten.com/300/300" alt="Pawwer 1">
+
+                        <div class="pawwer-footer">
+                            <strong>Pawwer 1</strong>
+                            <small>Dirección 1</small>
+                        </div>
+                    </label>
+
+                    <label class="pawwer-card">
+                        <input type="radio" name="cuidador" value="Pawwer 2">
+
+                        <img src="https://placekitten.com/300/300" alt="Pawwer 2">
+
+                        <div class="pawwer-footer">
+                            <strong>Pawwer 2</strong>
+                            <small>Dirección 2</small>
+                        </div>
+                    </label>
+
+                    <label class="pawwer-card">
+                        <input type="radio" name="cuidador" value="Pawwer 3">
+
+                        <img src="https://placekitten.com/300/300" alt="Pawwer 3">
+
+                        <div class="pawwer-footer">
+                            <strong>Pawwer 3</strong>
+                            <small>Dirección 3</small>
+                        </div>
+                    </label>
+
+                                        <label class="pawwer-card">
+                        <input type="radio" name="cuidador" value="Pawwer 4">
+
+                        <img src="https://placekitten.com/300/300" alt="Pawwer 4">
+
+                        <div class="pawwer-footer">
+                            <strong>Pawwer 4</strong>
+                            <small>Dirección 4</small>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+
+            <!-- TRANSPORTE -->
+            <div class="form-group">
+                <label>¿Necesitas transporte?</label>
+                <select name="transporte" id="transporte">
+                    <option value="No necesita transporte">No necesito transporte</option>
+                    <option value="Solo recogida (+$10.000)">Solo recogida (+$10.000)</option>
+                    <option value="Solo entrega (+$10.000)">Solo entrega (+$10.000)</option>
+                    <option value="Recogida y entrega (+$20.000)">Recogida y entrega (+$20.000)</option>
+                </select>
+                <br>
+                <br>
+                <span class="sub-label">$10.000 por trayecto</span>
+            </div>
+
+            <!-- DIRECCIÓN DE RECOGIDA -->
+            <div class="form-group" id="direccion-transporte" style="display:none;">
+                <label>📍 Dirección de recogida *</label>
+                <span class="sub-label">Indica la dirección donde recogeremos a tu mascota</span>
+                <input 
+                    type="text" 
+                    name="direccion_recogida" 
+                    placeholder="Ej: Calle 50, PH Torres del Sol, Apto 3B"
+                >
+            </div>
+
+
+            <!-- BOTONES -->
+            <div class="buttons">
+                <button type="button" class="btn-prev" onclick="prevStep(1)">Atrás</button>
+                <button type="button" class="btn-next" onclick="nextStep(1)">Siguiente</button>
+            </div>
+        </div>
+
+
+        <div class="step" id="step-2">
+            <h2>3. Personalidad y Carácter</h2>
+
+            <div class="form-group">
+                <label>¿Cómo describirías su personalidad?</label>
+                <span class="sub-label">Ej: Tranquilo, tímido, protector, independiente...</span>
+                <input type="text" name="personalidad" placeholder="Describe su esencia..." required>
+            </div>
+
+            <div class="form-group">
+                <label>Nivel de Energía</label>
+                <select name="energia">
+                    <option value="Baja">Baja 🛋️</option>
+                    <option value="Media">Media 🚶</option>
+                    <option value="Alta">Alta ⚡</option>
+                    <option value="Muy Alta">Muy Alta 🚀</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué cosas le encantan? 😍</label>
+                <textarea name="gustos" placeholder="Juguetes, masajes, premios..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué lo estresa o incomoda? 😰</label>
+                <textarea name="miedos" placeholder="Ruidos fuertes, otros perros, quedarse solo..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué lo calma cuando está estresado?</label>
+                <input type="text" name="calmantes" placeholder="Ej: Su cobija, caricias, estar solo...">
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn-prev" onclick="prevStep(2)">Atrás</button>
+                <button type="button" class="btn-next" onclick="nextStep(2)">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="step" id="step-3">
+            <h2>4. Rutinas de Cuidado</h2>
+
+            <div class="form-group">
+                <label>🥣 Alimentación</label>
+                <span class="sub-label">Tipo de comida, cantidad exacta, horarios y preparación.</span>
+                <textarea name="rutina_comida" placeholder="Detalla aquí su alimentación..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>🌳 Horarios de Paseo (Baño)</label>
+                <span class="sub-label">¿A qué horas suele salir a hacer sus necesidades?</span>
+                <input type="text" name="horario_paseos" placeholder="Ej: 8:00 AM, 12:00 PM y 6:00 PM" required>
+            </div>
+
+            <div class="form-group">
+                <label>💤 Sueño y Descanso</label>
+                <span class="sub-label">¿Dónde duerme? ¿Necesita luz, silencio o compañía?</span>
+                <textarea name="rutina_sueno" placeholder="Detalles de su descanso..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>🦮 Socialización en calle</label>
+                <span class="sub-label">¿Se lleva bien con perros/personas? ¿Reacción a motos/bicis?</span>
+                <textarea name="rutina_social" placeholder="Comportamiento en la calle..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>⚠️ PROHIBICIONES</label>
+                <span class="sub-label">¿Hay algo que el Pawwer NECESITE saber?</span>
+                <input type="text" name="prohibiciones" placeholder="Ej: No darle pollo, no soltar correa...">
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn-prev" onclick="prevStep(3)">Atrás</button>
+                <button type="button" class="btn-next" onclick="nextStep(3)">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="step" id="step-4">
+            <h2>5. Inventario</h2>
+            <p class="subtitle">Selecciona lo que entregarás al Pawwer:</p>
+
+            <div class="checkbox-group">
+                <label class="check-item"><input type="checkbox" name="item_comida" value="Comida"> Comida</label>
+                <label class="check-item"><input type="checkbox" name="item_platos" value="Platos"> Platos</label>
+                <label class="check-item"><input type="checkbox" name="item_correa" value="Correa/Arnés"> Correa</label>
+                <label class="check-item"><input type="checkbox" name="item_juguetes" value="Juguetes"> Juguetes</label>
+                <label class="check-item"><input type="checkbox" name="item_cama" value="Cama/Cobija"> Cama/Cobija</label>
+                <label class="check-item"><input type="checkbox" name="item_medicinas" value="Medicamentos"> Medicinas</label>
+                <label class="check-item"><input type="checkbox" name="item_bolsas" value="Bolsas"> Bolsas</label>
+            </div>
+
+            <div class="form-group">
+                <label>Añade extras para mayor tranquilidad</label>
+
+                <label class="check-item">
+                    <input type="checkbox" name="extra_seguro" value="Seguro SURA (Mes completo)">
+                    Seguro SURA (Mes completo) +$52.000
+                </label>
+
+                <label class="check-item" style="margin-top: 10px;">
+                    <input type="checkbox" name="extra_bano" value="Baño y limpieza">
+                    Baño y limpieza +$50.000
+                </label>
+            </div>
+
+            <div class="form-group" style="margin-top: 25px;">
+                <label>¿Algo más que debamos saber?</label>
+                <textarea name="extras" placeholder="Información adicional..."></textarea>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn-prev" onclick="prevStep(4)">Atrás</button>
+                <button type="button" class="btn-next" onclick="sendForm()">✅ Enviar Registro</button>
+            </div>
+        </div>
+
+        <div class="step" id="step-loading" style="text-align: center; padding: 40px 0;">
+            <div class="loader"></div>
+            <h3 style="color: var(--midnight);">Enviando información...</h3>
+        </div>
+
+        <div class="step" id="step-success" style="text-align: center; padding: 40px 0;">
+            <span style="font-size: 70px;">🎉</span>
+            <h2 style="border:none; margin-top: 10px;">¡Listo!</h2>
+            <p style="font-size: 1.1rem; color: var(--text-main);">Hemos recibido la información de tu peludo.</p>
+            <p style="font-size: 0.95rem; color: var(--text-light);">Gracias por confiar en Pawwi.</p>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    // CREDENCIALES
+    const EMAIL_SERVICE_ID = "service_hsecs6f"; 
+    
+    // --- NUEVO TEMPLATE ID PARA DAYCARE ---
+    const EMAIL_TEMPLATE_ID = "template_35v8izo"; 
+
+    // --- FUNCIÓN CALCULAR HORA DE SALIDA ---
+    function calcularSalida() {
+        const ingresoInput = document.getElementById('input_ingreso');
+        const salidaInput = document.getElementById('input_salida');
+        
+        if (ingresoInput.value) {
+            const [horas, minutos] = ingresoInput.value.split(':').map(Number);
+            let nuevaHora = horas + 7;
+            
+            if (nuevaHora >= 24) {
+                nuevaHora = nuevaHora - 24;
+            }
+            
+            const horasFormato = nuevaHora.toString().padStart(2, '0');
+            const minutosFormato = minutos.toString().padStart(2, '0');
+            salidaInput.value = `${horasFormato}:${minutosFormato}`;
+        }
+    }
+
+    function nextStep(currentStep) {
+        // Validación simple
+        const currentDiv = document.getElementById(`step-${currentStep}`);
+        const inputs = currentDiv.querySelectorAll('input[required], select[required], textarea[required]');
+        let valid = true;
+
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.style.borderColor = "var(--atomic-tangerine)";
+                valid = false;
+            } else {
+                input.style.borderColor = "var(--border)";
+            }
+        });
+
+        if (!valid) {
+            alert("Por favor completa los campos obligatorios marcados en rojo.");
+            return;
+        }
+
+        // VALIDACIÓN ESPECÍFICA PARA DÍAS DE ESTADÍA
+        if (currentStep === 1) {
+            const diasInput = document.querySelector('input[name="dias_estadia"]');
+            const dias = parseInt(diasInput.value, 10);
+
+            if (isNaN(dias) || dias < 3) {
+                alert("El servicio Pawwi Travel tiene un mínimo de 3 días 🐾");
+                diasInput.style.borderColor = "var(--atomic-tangerine)";
+                diasInput.focus();
+                return;
+            }
+        }
+
+
+        // VALIDACIÓN ESPECIAL PARA PAWWER (STEP 1)
+        if (currentStep === 1) {
+            const pawwerSeleccionado = document.querySelector('input[name="cuidador"]:checked');
+
+            if (!pawwerSeleccionado) {
+                alert("Por favor selecciona un Pawwer para cuidar a tu peludo 🐾");
+                return;
+            } else {
+                document.querySelectorAll('.pawwer-card').forEach(card => {
+                    card.style.borderColor = "var(--border)";
+                });
+            }
+        }
+
+
+        // Cambio de paso
+        document.getElementById(`step-${currentStep}`).classList.remove('active');
+        document.getElementById(`step-${currentStep + 1}`).classList.add('active');
+        
+        // Actualizar puntos
+        document.getElementById(`dot-${currentStep}`).classList.remove('active');
+        document.getElementById(`dot-${currentStep}`).classList.add('completed');
+        if(document.getElementById(`dot-${currentStep + 1}`)) {
+            document.getElementById(`dot-${currentStep + 1}`).classList.add('active');
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    function prevStep(currentStep) {
+        document.getElementById(`step-${currentStep}`).classList.remove('active');
+        document.getElementById(`step-${currentStep - 1}`).classList.add('active');
+        
+        document.getElementById(`dot-${currentStep}`).classList.remove('active');
+        document.getElementById(`dot-${currentStep - 1}`).classList.remove('completed');
+        document.getElementById(`dot-${currentStep - 1}`).classList.add('active');
+
+        window.scrollTo(0, 0);
+    }
+
+    function sendForm() {
+        document.getElementById('step-4').classList.remove('active');
+        document.getElementById('step-loading').classList.add('active');
+
+        // Recopilar datos
+        const form = document.getElementById('daycareForm');
+        const formData = new FormData(form);
+        
+        // Construir mensaje largo para el correo
+        let messageBody = "--- 🐶 PERFIL GENERAL ---\n";
+        
+        messageBody += `Nombre: ${formData.get('nombre')}\n`;
+        messageBody += `Raza/Tamaño: ${formData.get('raza')}\n`;
+        messageBody += `Edad: ${formData.get('edad')}\n`;
+        messageBody += `Sexo: ${formData.get('sexo')} (${formData.get('esterilizado') === 'Si' ? 'Esterilizado' : 'Sin esterilizar'})\n\n`;
+
+        messageBody += "🏡 ESTADÍA\n";
+        messageBody += `Días de servicio: ${formData.get('dias_estadia')} días\n`;
+        messageBody += `Pawwer seleccionado: ${formData.get('cuidador')}\n\n`;
+
+        messageBody += "🚗 TRANSPORTE\n";
+        messageBody += `Servicio: ${formData.get('transporte')}\n`;
+        if (formData.get('direccion_recogida')) {
+            messageBody += `Dirección: ${formData.get('direccion_recogida')}\n`;
+        }
+        messageBody += "--- 🧠 PERSONALIDAD ---\n";
+        messageBody += `Carácter: ${formData.get('personalidad')}\n`;
+        messageBody += `Energía: ${formData.get('energia')}\n`;
+        messageBody += `Le encanta: ${formData.get('gustos')}\n`;
+        messageBody += `Le estresa: ${formData.get('miedos')}\n`;
+        messageBody += `Se calma con: ${formData.get('calmantes')}\n\n`;
+
+        messageBody += "--- 🦴 CUIDADOS ---\n";
+        messageBody += `Comida: ${formData.get('rutina_comida')}\n`;
+        messageBody += `HORARIO PASEOS: ${formData.get('horario_paseos')}\n`;
+        messageBody += `Sueño: ${formData.get('rutina_sueno')}\n`;
+        messageBody += `Socialización: ${formData.get('rutina_social')}\n`;
+        messageBody += `⛔ PROHIBIDO: ${formData.get('prohibiciones')}\n\n`;
+
+        messageBody += "--- 🎒 INVENTARIO ENTREGADO ---\n";
+        const items = [];
+        if(formData.get('item_comida')) items.push("Comida");
+        if(formData.get('item_platos')) items.push("Platos");
+        if(formData.get('item_correa')) items.push("Correa");
+        if(formData.get('item_juguetes')) items.push("Juguetes");
+        if(formData.get('item_cama')) items.push("Cama/Cobija");
+        if(formData.get('item_medicinas')) items.push("Medicamentos");
+        if(formData.get('item_bolsas')) items.push("Bolsas");
+        
+        messageBody += items.length > 0 ? items.join(", ") : "Ninguno seleccionado";
+        messageBody += "\n\n--- ➕ EXTRAS CONTRATADOS ---\n";
+
+        const extrasContratados = [];
+        if (formData.get('extra_seguro')) extrasContratados.push("🛡️ Seguro SURA (Mes completo)");
+        if (formData.get('extra_bano')) extrasContratados.push("🧼 Baño y limpieza");
+
+        messageBody += extrasContratados.length
+            ? extrasContratados.join("\n")
+            : "Ningún extra contratado";
+
+        messageBody += `\n\nNotas adicionales: ${formData.get('extras') || "Ninguna"}`;
+
+        // Enviar a EmailJS con el template nuevo
+        const templateParams = {
+            message: messageBody, 
+            to_email: 'pawwipawwilead@gmail.com' 
+        };
+        emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, templateParams)
+            .then(function(response) {
+                document.getElementById('step-loading').classList.remove('active');
+                document.getElementById('step-success').classList.add('active');
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert("Hubo un error enviando. Por favor toma captura.");
+                document.getElementById('step-loading').classList.remove('active');
+                document.getElementById('step-4').classList.add('active'); // Volver
+            });
+    }
+
+    const transporteSelect = document.getElementById('transporte');
+    const direccionGroup = document.getElementById('direccion-transporte');
+    const direccionInput = direccionGroup.querySelector('input');
+
+    transporteSelect.addEventListener('change', () => {
+        if (transporteSelect.value !== 'No necesita transporte') {
+            direccionGroup.style.display = 'block';
+            direccionInput.setAttribute('required', 'required');
+        } else {
+            direccionGroup.style.display = 'none';
+            direccionInput.removeAttribute('required');
+            direccionInput.value = '';
+        }
+    });
+
+</script>
+
+</body>
+</html>
